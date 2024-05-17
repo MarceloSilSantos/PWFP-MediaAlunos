@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Média e Situação de Alunos</title>
+</head>
+<body>
+<h1> Média e Situação de Alunos</h1>
+<table id="tabela">
+    <thead>
+        <tr>
+            <th>Aluno</th>
+            <th>Nota 1</th>
+            <th>Nota 2</th>
+            <th>Média</th>
+            <th>Situação</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+    </tbody>
+</table>
+<button onclick="adicionarAluno()">Adicionar Aluno</button>
+<button onclick="calcularMediasESituacoes()">Calcular Médias e Situações</button>
+
+<script>
+function adicionarAluno() {
+    var table = document.getElementById("tabela").getElementsByTagName('tbody')[0];
+    var rowCount = table.rows.length;
+    var row = table.insertRow(rowCount);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    cell1.innerHTML = "Aluno " + (rowCount + 1);
+    cell2.innerHTML = "<input type='number' step='0.01' min='0' max='10'>";
+    cell3.innerHTML = "<input type='number' step='0.01' min='0' max='10'>";
+    cell4.innerHTML = " ";
+    cell5.innerHTML = " ";
+}
+
+function calcularMediasESituacoes() {
+    var table = document.getElementById("tabela").getElementsByTagName('tbody')[0];
+    var rowCount = table.rows.length;
+    for (var i = 0; i < rowCount; i++) {
+        var row = table.rows[i];
+        var nota1 = parseFloat(row.cells[1].getElementsByTagName('input')[0].value);
+        var nota2 = parseFloat(row.cells[2].getElementsByTagName('input')[0].value);
+        var media = (nota1 + nota2) / 2;
+        var situacao = media >= 6 ? "Aprovado" : "Reprovado";
+        if (!isNaN(media)) {
+            row.cells[3].innerHTML = media.toFixed(2);
+            row.cells[4].innerHTML = situacao;
+        } else {
+            row.cells[3].innerHTML = " ";
+            row.cells[4].innerHTML = " ";
+        }
+    }
+}
+</script>
+</body>
+</html>
